@@ -20,5 +20,5 @@ server.use(errorHandler);
 
 // inicialização do servidor
 server.listen(process.env.PORT || port, () => {
-  console.log(`Server listening on http://localhost:${port}`);
+  console.log(`Server listening`);
 });
