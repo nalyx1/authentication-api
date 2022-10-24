@@ -19,6 +19,6 @@ server.use(usersRoute);
 server.use(errorHandler);
 
 // inicialização do servidor
-server.listen(port, () => {
+server.listen(process.env.PORT || port, () => {
   console.log(`Server listening on http://localhost:${port}`);
 });
