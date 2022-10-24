@@ -36,21 +36,18 @@ class UsersRepository {
     }
   }
 
-  async findByUsernameAndPassword(username: string, password: string): Promise<User | null> {
+  async findByUsername(username: string): Promise<User | null> {
     try {
       const query = `
                 SELECT uuid,username,password
                 FROM application_user
                 WHERE username = $1 
-                AND password = crypt($2, '${this.secret}')
             `;
 
-      const params = [username, password];
+      const params = [username];
       const { rows } = await db.query<User>(query, params);
       const [user] = rows;
       return user || null;
-      // 'mi8ruE0q7oHzU'
-      // 'mi8ruE0q7oHzU'
     } catch (err) {
       throw new DatabaseError("Erro na busca por username e senha", err);
     }
