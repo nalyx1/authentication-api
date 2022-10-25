@@ -55,6 +55,12 @@ export class UsersController {
       const { uuid } = req.params;
       const { username, password } = req.body;
 
+      if (uuid == "dedb4a33-2fc6-40b7-bef5-be40d91a8584") {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .send({ status: StatusCodes.BAD_REQUEST, message: `Usuário admin não pode ser atualizado` });
+      }
+
       const findUser = await usersRepository.findByUsername(username);
       if (!findUser) {
         return res.status(StatusCodes.OK).send({ status: StatusCodes.OK, message: `Usuário não existe` });
@@ -75,6 +81,12 @@ export class UsersController {
   async deleteUser(req: Request<{ uuid: string }>, res: Response, next: NextFunction) {
     try {
       const { uuid } = req.params;
+
+      if (uuid == "dedb4a33-2fc6-40b7-bef5-be40d91a8584") {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .send({ status: StatusCodes.BAD_REQUEST, message: `Usuário admin não pode ser deletado` });
+      }
 
       const findUser = await usersRepository.findOneById(uuid);
       if (!findUser) {
